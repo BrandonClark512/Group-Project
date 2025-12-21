@@ -64,6 +64,11 @@ def deal_hand(deck, num_cards):
         hand.append(deal_card(deck))
     return hand
 
+def show_hand(player, hand):
+    """displays the hand of the specified players"""
+    print(f"{player} hand: ", [str(card) for card in hand])
+
+
 #hit or stand
 
 #calculate score
@@ -89,13 +94,14 @@ if __name__ == "__main__":
         print(card)
 
     print("\n------------------------Testing dealing------------------------")
-    
+
     # define player and dealer hands, call deal_hand function to deal 2 cards each
     player_hand = deal_hand(deck, 2)
     dealer_hand = deal_hand(deck, 2)
     
-    print('\nPlayer hand: ', [str(card) for card in player_hand])
-    print('Dealer hand: ', [str(card) for card in dealer_hand])
+    print()
+    show_hand("Player", player_hand)
+    show_hand("Dealer", dealer_hand)
     
     # test to ensure cards are removed from the deck
     print(f"\nCards left in deck: {len(deck)}")
