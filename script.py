@@ -76,11 +76,8 @@ player_hand = deal_hand(deck, 2)
 dealer_hand = deal_hand(deck, 2)
 
 # print hands
-for card in player_hand:
-    print('Player hand: ' + str(card))
-
-for card in dealer_hand:
-    print('Dealer hand: ' + str(card))
+print('Player hand: ', [str(card) for card in player_hand])
+print('Dealer hand: ', [str(card) for card in dealer_hand])
 
 #hit or stand
 
