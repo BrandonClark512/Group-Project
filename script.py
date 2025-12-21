@@ -2,6 +2,8 @@
 from enum import Enum
 #Dataclass allows python to automatically generate init and repr 
 from dataclasses import dataclass
+#Import random module to allow us to use random methods
+import random
 
 #deck of cards
 class Suit(Enum):
@@ -42,6 +44,10 @@ if __name__ == "__main__":
         print(card)
     print(f"Total cards in deck: {len(deck)}")
 
+#Shuffle deck
+
+#Use random module shuffle method to shuffle the deck. This method takes a sequence and reorders it. It changes the original list and does not return a new list so we can use deck as normal after this.
+random.shuffle(deck)
 
 
 #deal cards
