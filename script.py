@@ -41,27 +41,27 @@ deck = [Card(rank, suit) for suit in Suit for rank in Rank]
 
 #Shuffle deck
 
-# Use random module shuffle method to shuffle the deck. This method takes a sequence and reorders it. It changes the original list and does not return a new list so we can use deck as normal after this.
 def shuffle_deck(deck):
+    """
+    Use random shuffle method to shuffle the deck.
+    This method changes the original list and does not return a new list.
+    """
     random.shuffle(deck)
 
 
 #Deal cards
-
-# define function to deal a card from the deck, passing in the deck as a parameter. 
+ 
 def deal_card(deck):
-    # pop method removes and returns the last card from the deck
+    """pop method removes and returns the last card from the deck"""
     return deck.pop()
 
-# define function to deal a hand of cards, passing in the deck and number of cards to deal as parameters
+
 def deal_hand(deck, num_cards):
-    # starts with an empty list for the hand
     hand = []
-    # loops for the number of cards specified
+    """loops for the number of cards specified.
+     Calls deal card function and appends dealt cards to the hand"""
     for _ in range(num_cards):
-        # calls the deal_card function and appends the result to the hand
         hand.append(deal_card(deck))
-    # returns the completed hand (must be outside of loop otherwise it will return after the first iteration)
     return hand
 
 #hit or stand
@@ -80,13 +80,16 @@ if __name__ == "__main__":
     print(f"Total cards in deck: {len(deck)}")
 
     # test shuffle to ensure deck order changes
+    print("\n------------------------Testing shuffle------------------------")
+
     shuffle_deck(deck)
+
     print("\nShuffled deck:")
     for card in deck[:10]:
         print(card)
 
-    # test dealing
-
+    print("\n------------------------Testing dealing------------------------")
+    
     # define player and dealer hands, call deal_hand function to deal 2 cards each
     player_hand = deal_hand(deck, 2)
     dealer_hand = deal_hand(deck, 2)
