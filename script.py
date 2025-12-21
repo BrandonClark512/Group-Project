@@ -47,7 +47,8 @@ if __name__ == "__main__":
 #Shuffle deck
 
 #Use random module shuffle method to shuffle the deck. This method takes a sequence and reorders it. It changes the original list and does not return a new list so we can use deck as normal after this.
-random.shuffle(deck)
+def shuffle_deck(deck):
+    random.shuffle(deck)
 
 
 #Deal cards
@@ -65,9 +66,21 @@ def deal_hand(deck, num_cards):
     for _ in range(num_cards):
         #calls the deal_card function and appends the result to the hand
         hand.append(deal_card(deck))
-        # returns the completed hand
-        return hand
+    # returns the completed hand (must be outside of loop otherwise it will return after the first iteration)
+    return hand
     
+shuffle_deck(deck)
+
+# define player and dealer hands, call deal_hand function to deal 2 cards each
+player_hand = deal_hand(deck, 2)
+dealer_hand = deal_hand(deck, 2)
+
+# print hands
+for card in player_hand:
+    print('Player hand: ' + str(card))
+
+for card in dealer_hand:
+    print('Dealer hand: ' + str(card))
 
 #hit or stand
 
