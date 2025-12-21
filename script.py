@@ -41,38 +41,28 @@ deck = [Card(rank, suit) for suit in Suit for rank in Rank]
 
 #Shuffle deck
 
-#Use random module shuffle method to shuffle the deck. This method takes a sequence and reorders it. It changes the original list and does not return a new list so we can use deck as normal after this.
+# Use random module shuffle method to shuffle the deck. This method takes a sequence and reorders it. It changes the original list and does not return a new list so we can use deck as normal after this.
 def shuffle_deck(deck):
     random.shuffle(deck)
 
 
 #Deal cards
 
-# defines function to deal a card from the deck, passing in the deck as a parameter. 
+# define function to deal a card from the deck, passing in the deck as a parameter. 
 def deal_card(deck):
-    # uses the pop method to remove and return the last card from the deck
+    # pop method removes and returns the last card from the deck
     return deck.pop()
 
-# defines function to deal a hand of cards, passing in the deck and number of cards to deal as parameters
+# define function to deal a hand of cards, passing in the deck and number of cards to deal as parameters
 def deal_hand(deck, num_cards):
     # starts with an empty list for the hand
     hand = []
-    # Loops for the number of cards specified
+    # loops for the number of cards specified
     for _ in range(num_cards):
-        #calls the deal_card function and appends the result to the hand
+        # calls the deal_card function and appends the result to the hand
         hand.append(deal_card(deck))
     # returns the completed hand (must be outside of loop otherwise it will return after the first iteration)
     return hand
-    
-shuffle_deck(deck)
-
-# define player and dealer hands, call deal_hand function to deal 2 cards each
-player_hand = deal_hand(deck, 2)
-dealer_hand = deal_hand(deck, 2)
-
-# print hands
-print('Player hand: ', [str(card) for card in player_hand])
-print('Dealer hand: ', [str(card) for card in dealer_hand])
 
 #hit or stand
 
@@ -87,3 +77,20 @@ if __name__ == "__main__":
     for card in deck[:10]:
         print(card)
     print(f"Total cards in deck: {len(deck)}")
+
+    # test shuffle to ensure deck order changes
+    shuffle_deck(deck)
+    for card in deck[:10]:
+        print(card)
+
+    # test dealing
+
+    # define player and dealer hands, call deal_hand function to deal 2 cards each
+    player_hand = deal_hand(deck, 2)
+    dealer_hand = deal_hand(deck, 2)
+    
+    print('Player hand: ', [str(card) for card in player_hand])
+    print('Dealer hand: ', [str(card) for card in dealer_hand])
+    
+    # test to ensure cards are removed from the deck
+    print(f"Cards left in deck: {len(deck)}")
