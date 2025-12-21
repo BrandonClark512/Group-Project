@@ -38,11 +38,6 @@ class Card:
 
 deck = [Card(rank, suit) for suit in Suit for rank in Rank]
 
-#Debug/Testing Should only output if this file is executed directly
-if __name__ == "__main__":
-    for card in deck[:10]:
-        print(card)
-    print(f"Total cards in deck: {len(deck)}")
 
 #Shuffle deck
 
@@ -86,3 +81,9 @@ print('Dealer hand: ', [str(card) for card in dealer_hand])
 #compare and/or determine winner
 
 #append score to results
+
+#Debug/Testing Should only output if this file is executed directly
+if __name__ == "__main__":
+    for card in deck[:10]:
+        print(card)
+    print(f"Total cards in deck: {len(deck)}")
