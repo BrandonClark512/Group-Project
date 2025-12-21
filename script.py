@@ -74,12 +74,14 @@ def deal_hand(deck, num_cards):
 
 #Debug/Testing Should only output if this file is executed directly
 if __name__ == "__main__":
+    print("Initial deck:")
     for card in deck[:10]:
         print(card)
     print(f"Total cards in deck: {len(deck)}")
 
     # test shuffle to ensure deck order changes
     shuffle_deck(deck)
+    print("\nShuffled deck:")
     for card in deck[:10]:
         print(card)
 
@@ -89,8 +91,8 @@ if __name__ == "__main__":
     player_hand = deal_hand(deck, 2)
     dealer_hand = deal_hand(deck, 2)
     
-    print('Player hand: ', [str(card) for card in player_hand])
+    print('\nPlayer hand: ', [str(card) for card in player_hand])
     print('Dealer hand: ', [str(card) for card in dealer_hand])
     
     # test to ensure cards are removed from the deck
-    print(f"Cards left in deck: {len(deck)}")
+    print(f"\nCards left in deck: {len(deck)}")
