@@ -50,7 +50,24 @@ if __name__ == "__main__":
 random.shuffle(deck)
 
 
-#deal cards
+#Deal cards
+
+# defines function to deal a card from the deck, passing in the deck as a parameter. 
+def deal_card(deck):
+    # uses the pop method to remove and return the last card from the deck
+    return deck.pop()
+
+# defines function to deal a hand of cards, passing in the deck and number of cards to deal as parameters
+def deal_hand(deck, num_cards):
+    # starts with an empty list for the hand
+    hand = []
+    # Loops for the number of cards specified
+    for _ in range(num_cards):
+        #calls the deal_card function and appends the result to the hand
+        hand.append(deal_card(deck))
+        # returns the completed hand
+        return hand
+    
 
 #hit or stand
 
