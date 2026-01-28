@@ -2,6 +2,8 @@
 from enum import Enum
 #Dataclass allows python to automatically generate init and repr 
 from dataclasses import dataclass
+#Import random module to allow us to use random methods
+import random
 
 #deck of cards
 class Suit(Enum):
@@ -36,15 +38,36 @@ class Card:
 
 deck = [Card(rank, suit) for suit in Suit for rank in Rank]
 
-#Debug/Testing Should only output if this file is executed directly
-if __name__ == "__main__":
-    for card in deck[:10]:
-        print(card)
-    print(f"Total cards in deck: {len(deck)}")
+
+#Shuffle deck
+
+def shuffle_deck(deck):
+    """
+    Use random shuffle method to shuffle the deck.
+    This method changes the original list and does not return a new list.
+    """
+    random.shuffle(deck)
 
 
+#Deal cards
+ 
+def deal_card(deck):
+    """pop method removes and returns the last card from the deck"""
+    return deck.pop()
 
-#deal cards
+
+def deal_hand(deck, num_cards):
+    hand = []
+    """loops for the number of cards specified.
+     Calls deal card function and appends dealt cards to the hand"""
+    for _ in range(num_cards):
+        hand.append(deal_card(deck))
+    return hand
+
+def show_hand(player, hand):
+    """displays the hand of the specified players"""
+    print(f"{player} hand: ", [str(card) for card in hand])
+
 
 #hit or stand
 
@@ -53,3 +76,32 @@ if __name__ == "__main__":
 #compare and/or determine winner
 
 #append score to results
+
+#Debug/Testing Should only output if this file is executed directly
+if __name__ == "__main__":
+    print("Initial deck:")
+    for card in deck[:10]:
+        print(card)
+    print(f"Total cards in deck: {len(deck)}")
+
+    # test shuffle to ensure deck order changes
+    print("\n------------------------Testing shuffle------------------------")
+
+    shuffle_deck(deck)
+
+    print("\nShuffled deck:")
+    for card in deck[:10]:
+        print(card)
+
+    print("\n------------------------Testing dealing------------------------")
+
+    # define player and dealer hands, call deal_hand function to deal 2 cards each
+    player_hand = deal_hand(deck, 2)
+    dealer_hand = deal_hand(deck, 2)
+    
+    print()
+    show_hand("Player", player_hand)
+    show_hand("Dealer", dealer_hand)
+    
+    # test to ensure cards are removed from the deck
+    print(f"\nCards left in deck: {len(deck)}")
