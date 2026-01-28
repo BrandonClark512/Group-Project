@@ -69,7 +69,10 @@ def show_hand(player, hand):
     print(f"{player} hand: ", [str(card) for card in hand])
 
 
-#hit or stand
+#hit or stand command
+if __name__ == "__main__":
+    print("Shuffling deck...")
+    shuffle_deck(deck)
 
 #calculate score
 
