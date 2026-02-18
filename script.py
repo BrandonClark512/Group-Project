@@ -77,6 +77,10 @@ if __name__ == "__main__":
     # Deal initial hands
     player_hand = deal_hand(deck, 2)
     dealer_hand = deal_hand(deck, 2)
+
+    print("\nInitial hands:")
+    show_hand("Player", player_hand)
+    show_hand("Dealer", dealer_hand, hide_first=True)
 #calculate score
 
 #compare and/or determine winner
@@ -111,4 +115,5 @@ if __name__ == "__main__":
     
     # test to ensure cards are removed from the deck
     print(f"\nCards left in deck: {len(deck)}")
+
 
