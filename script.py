@@ -69,7 +69,45 @@ def show_hand(player, hand):
     print(f"{player} hand: ", [str(card) for card in hand])
 
 
-#hit or stand
+#hit or stand command
+if __name__ == "__main__":
+    print("Shuffling deck...")
+    shuffle_deck(deck)
+   
+    # Deal initial hands
+    player_hand = deal_hand(deck, 2)
+    dealer_hand = deal_hand(deck, 2)
+
+    print("\nInitial hands:")
+    show_hand("Player", player_hand)
+    show_hand("Dealer", dealer_hand, hide_first=True)
+
+# -------- Player Turn --------
+    while True:
+        player_score = calculate_score(player_hand)
+        print(f"\nPlayer score: {player_score}")
+
+        if player_score > 21:
+            print("Player busts! Dealer wins.")
+            break
+
+        move = input("Hit or stand: ").lower()
+        if move == "hit":
+            player_hand.append(deal_card(deck))
+            show_hand("Player", player_hand)
+        else:
+            break
+            
+    # If player busts, skip dealer turn
+    if calculate_score(player_hand) <= 21:
+
+        # -------- Dealer Turn --------
+        print("\nDealer reveals:")
+        show_hand("Dealer", dealer_hand)
+
+        while calculate_score(dealer_hand) < 17:
+            dealer_hand.append(deal_card(deck))
+            show_hand("Dealer", dealer_hand)
 
 #calculate score
 
@@ -105,3 +143,7 @@ if __name__ == "__main__":
     
     # test to ensure cards are removed from the deck
     print(f"\nCards left in deck: {len(deck)}")
+
+
+
+
