@@ -73,6 +73,27 @@ def show_hand(player, hand, hide_first=False):
         
     print(f"{player}'s hand: {displayed}")
 
+def calculate_score(hand):
+    """calculates the score of a hand"""
+
+    score = 0
+    aces = 0
+
+    for card in hand:
+        if card.rank in [Rank.Jack, Rank.Queen, Rank.King]:
+            score += 10
+        elif card.rank == Rank.Ace:
+            score += 11
+            aces += 1
+        else:
+            score += int(card.rank.value)
+
+    while score > 21 and aces > 0:
+        score -= 10
+        aces -= 1
+
+    return score
+
 
 #hit or stand command
 if __name__ == "__main__":
