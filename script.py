@@ -64,9 +64,14 @@ def deal_hand(deck, num_cards):
         hand.append(deal_card(deck))
     return hand
 
-def show_hand(player, hand):
+def show_hand(player, hand, hide_first=False):
     """displays the hand of the specified players"""
-    print(f"{player} hand: ", [str(card) for card in hand])
+    if hide_first:
+        displayed = ["??"] + [str(card) for card in hand[1:]]
+    else:
+        displayed = [str(card) for card in hand]
+        
+    print(f"{player}'s hand: {displayed}")
 
 
 #hit or stand command
