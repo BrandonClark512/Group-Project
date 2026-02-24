@@ -112,6 +112,37 @@ def calculate_winner(player_hand, dealer_hand):
         return "Dealer wins!"
     else:
         return "It's a tie!"
+    
+def run_tests():
+    print("Running tests...")
+    
+    print("\nInitial deck:")
+    test_deck = create_deck()
+    for card in test_deck[:10]:
+        print(card)
+    print(f"Total cards in deck: {len(test_deck)}")
+
+        # test shuffle to ensure deck order changes
+    print("\n------------------------Testing shuffle------------------------")
+
+    shuffle_deck(deck)
+
+    print("\nShuffled deck:")
+    for card in deck[:10]:
+        print(card)
+
+    print("\n------------------------Testing dealing------------------------")
+
+    # define player and dealer hands, call deal_hand function to deal 2 cards each
+    player_hand = deal_hand(test_deck, 2)
+    dealer_hand = deal_hand(test_deck, 2)
+    
+    print()
+    show_hand("Player", player_hand)
+    show_hand("Dealer", dealer_hand)
+    
+    # test to ensure cards are removed from the deck
+    print(f"\nCards left in deck: {len(deck)}")
 
 #hit or stand command
 if __name__ == "__main__":
@@ -161,32 +192,12 @@ if __name__ == "__main__":
 
 #Debug/Testing Should only output if this file is executed directly
 if __name__ == "__main__":
-    print("Initial deck:")
-    for card in deck[:10]:
-        print(card)
-    print(f"Total cards in deck: {len(deck)}")
-
-    # test shuffle to ensure deck order changes
-    print("\n------------------------Testing shuffle------------------------")
-
-    shuffle_deck(deck)
-
-    print("\nShuffled deck:")
-    for card in deck[:10]:
-        print(card)
-
-    print("\n------------------------Testing dealing------------------------")
-
-    # define player and dealer hands, call deal_hand function to deal 2 cards each
-    player_hand = deal_hand(deck, 2)
-    dealer_hand = deal_hand(deck, 2)
     
-    print()
-    show_hand("Player", player_hand)
-    show_hand("Dealer", dealer_hand)
-    
-    # test to ensure cards are removed from the deck
-    print(f"\nCards left in deck: {len(deck)}")
+
+
+
+
+
 
     print("\n------------------------Determine winner------------------------")   
 
