@@ -5,6 +5,8 @@ from dataclasses import dataclass
 #Import random module to allow us to use random methods
 import random
 
+results = []
+
 #deck of cards
 class Suit(Enum):
     Spades = "♠"
@@ -186,6 +188,14 @@ if __name__ == "__main__":
     
     # test to ensure cards are removed from the deck
     print(f"\nCards left in deck: {len(deck)}")
+
+    print("\n------------------------Determine winner------------------------")   
+
+    outcome = calculate_winner(player_hand, dealer_hand)
+    print(outcome)
+    results.append(outcome)
+
+    print(f"\nResults so far:", results)
 
 
 
