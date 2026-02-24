@@ -38,11 +38,10 @@ class Card:
     def __str__(self):
         return f"{self.rank.value}{self.suit.value}"
 
-deck = [Card(rank, suit) for suit in Suit for rank in Rank]
-
+def create_deck():
+    return [Card(rank, suit) for suit in Suit for rank in Rank]
 
 #Shuffle deck
-
 def shuffle_deck(deck):
     """
     Use random shuffle method to shuffle the deck.
