@@ -94,6 +94,23 @@ def calculate_score(hand):
 
     return score
 
+def calculate_winner(player_hand, dealer_hand):
+    
+    player_score = calculate_score(player_hand)
+    dealer_score = calculate_score(dealer_hand)
+
+    print(f"\nFinal Scores: Player {player_score}, Dealer {dealer_score}")
+
+    if player_score > 21:
+        return "Dealer wins! Player busts."
+    elif dealer_score > 21:
+        return "Player wins! Dealer busts."
+    elif player_score > dealer_score:
+        return "Player wins!"
+    elif dealer_score > player_score:
+        return "Dealer wins!"
+    else:
+        return "It's a tie!"
 
 #hit or stand command
 if __name__ == "__main__":
