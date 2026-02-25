@@ -125,10 +125,10 @@ def run_tests():
         # test shuffle to ensure deck order changes
     print("\n------------------------Testing shuffle------------------------")
 
-    shuffle_deck(deck)
+    shuffle_deck(test_deck)
 
     print("\nShuffled deck:")
-    for card in deck[:10]:
+    for card in test_deck[:10]:
         print(card)
 
     print("\n------------------------Testing dealing------------------------")
@@ -142,11 +142,15 @@ def run_tests():
     show_hand("Dealer", dealer_hand)
     
     # test to ensure cards are removed from the deck
-    print(f"\nCards left in deck: {len(deck)}")
+    print(f"\nCards left in deck: {len(test_deck)}")
 
-#hit or stand command
-if __name__ == "__main__":
-    print("Shuffling deck...")
+
+def play_game():
+    print("\nStarting Blackjack Game!")
+    deck = create_deck()
+    shuffle_deck(deck)
+
+    print("\nShuffling deck...")
     shuffle_deck(deck)
    
     # Deal initial hands
@@ -157,7 +161,7 @@ if __name__ == "__main__":
     show_hand("Player", player_hand)
     show_hand("Dealer", dealer_hand, hide_first=True)
 
-# -------- Player Turn --------
+    # -------- Player Turn --------
     while True:
         player_score = calculate_score(player_hand)
         print(f"\nPlayer score: {player_score}")
@@ -184,29 +188,13 @@ if __name__ == "__main__":
             dealer_hand.append(deal_card(deck))
             show_hand("Dealer", dealer_hand)
 
-#calculate score
-
-#compare and/or determine winner
-
-#append score to results
-
-#Debug/Testing Should only output if this file is executed directly
-if __name__ == "__main__":
-    
-
-
-
-
-
-
-    print("\n------------------------Determine winner------------------------")   
-
+    # -------- Determine Winner --------
     outcome = calculate_winner(player_hand, dealer_hand)
     print(outcome)
     results.append(outcome)
 
     print(f"\nResults so far:", results)
 
-
-
-
+if __name__ == "__main__":
+    run_tests()
+    play_game()
