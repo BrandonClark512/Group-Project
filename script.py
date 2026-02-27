@@ -80,7 +80,7 @@ def show_hand(player, hand, hide_first=False):
 
 def save_result(player_score, dealer_score, winner):
     """saves the result of the game to a text file with a timestamp"""
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
     with open("results.txt", "a") as file:
         file.write(f"{timestamp} Player: {player_score}, Dealer: {dealer_score}, Winner: {winner}\n")
 
