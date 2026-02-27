@@ -6,6 +6,8 @@ from dataclasses import dataclass
 import random
 
 results = []
+player_points = 0
+dealer_points = 0
 
 #deck of cards
 class Suit(Enum):
@@ -103,13 +105,13 @@ def calculate_winner(player_hand, dealer_hand):
     print(f"\nFinal Scores: Player {player_score}, Dealer {dealer_score}")
 
     if player_score > 21:
-        return "Dealer wins! Player busts."
+        return "dealer", "Dealer wins! Player busts."
     elif dealer_score > 21:
-        return "Player wins! Dealer busts."
+        return "player", "Player wins! Dealer busts."
     elif player_score > dealer_score:
-        return "Player wins!"
+        return "player", "Player wins!"
     elif dealer_score > player_score:
-        return "Dealer wins!"
+        return "dealer", "Dealer wins!"
     else:
         return "It's a tie!"
     
@@ -201,7 +203,7 @@ if __name__ == "__main__":
     while True:
         play_game()
         again = input("Play again? (y/n): ").lower()
-        
+
         if again != 'y':
             print("Game over. Thanks for playing!")
             break
