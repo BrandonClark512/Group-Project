@@ -4,6 +4,8 @@ from enum import Enum
 from dataclasses import dataclass
 #Import random module to allow us to use random methods
 import random
+#Import datetime to allow tracking of game date and times
+from datetime import datetime
 
 results = []
 player_points = 0
@@ -75,6 +77,12 @@ def show_hand(player, hand, hide_first=False):
         displayed = [str(card) for card in hand]
         
     print(f"{player}'s hand: {displayed}")
+
+def save_result(player_score, dealer_score, winner):
+    """saves the result of the game to a text file with a timestamp"""
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open("results.txt", "a") as file:
+        file.write(f"{timestamp} Player: {player_score}, Dealer: {dealer_score}, Winner: {winner}\n")
 
 def calculate_score(hand):
     """calculates the score of a hand"""
@@ -206,6 +214,11 @@ def play_game():
         dealer_points += 1
 
     results.append(message)
+
+    player_score = calculate_score(player_hand)
+    dealer_score = calculate_score(dealer_hand)
+
+    save_result(player_score, dealer_score, winner)
 
     # print(f"\nResults so far:", results)
     print(f"\nCurrent Score - Player: {player_points}, Dealer: {dealer_points}")    
