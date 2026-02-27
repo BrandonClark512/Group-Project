@@ -4,6 +4,12 @@ from enum import Enum
 from dataclasses import dataclass
 #Import random module to allow us to use random methods
 import random
+#Import datetime to allow tracking of game date and times
+from datetime import datetime
+
+results = []
+player_points = 0
+dealer_points = 0
 
 #deck of cards
 class Suit(Enum):
@@ -36,11 +42,10 @@ class Card:
     def __str__(self):
         return f"{self.rank.value}{self.suit.value}"
 
-deck = [Card(rank, suit) for suit in Suit for rank in Rank]
-
+def create_deck():
+    return [Card(rank, suit) for suit in Suit for rank in Rank]
 
 #Shuffle deck
-
 def shuffle_deck(deck):
     """
     Use random shuffle method to shuffle the deck.
@@ -64,14 +69,98 @@ def deal_hand(deck, num_cards):
         hand.append(deal_card(deck))
     return hand
 
-def show_hand(player, hand):
+def show_hand(player, hand, hide_first=False):
     """displays the hand of the specified players"""
-    print(f"{player} hand: ", [str(card) for card in hand])
+    if hide_first:
+        displayed = ["??"] + [str(card) for card in hand[1:]]
+    else:
+        displayed = [str(card) for card in hand]
+        
+    print(f"{player}'s hand: {displayed}")
+
+def save_result(player_score, dealer_score, winner):
+    """saves the result of the game to a text file with a timestamp"""
+    timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    with open("results.txt", "a") as file:
+        file.write(f"{timestamp} Player: {player_score}, Dealer: {dealer_score}, Winner: {winner}\n")
+
+def calculate_score(hand):
+    """calculates the score of a hand"""
+
+    score = 0
+    aces = 0
+
+    for card in hand:
+        if card.rank in [Rank.Jack, Rank.Queen, Rank.King]:
+            score += 10
+        elif card.rank == Rank.Ace:
+            score += 11
+            aces += 1
+        else:
+            score += int(card.rank.value)
+
+    while score > 21 and aces > 0:
+        score -= 10
+        aces -= 1
+
+    return score
+
+def calculate_winner(player_hand, dealer_hand):
+    
+    player_score = calculate_score(player_hand)
+    dealer_score = calculate_score(dealer_hand)
+
+    print(f"\nFinal Scores: Player {player_score}, Dealer {dealer_score}")
+
+    if player_score > 21:
+        return "dealer", "Dealer wins! Player busts."
+    elif dealer_score > 21:
+        return "player", "Player wins! Dealer busts."
+    elif player_score > dealer_score:
+        return "player", "Player wins!"
+    elif dealer_score > player_score:
+        return "dealer", "Dealer wins!"
+    else:
+        return "tie", "It's a tie!"
+    
+def run_tests():
+    print("Running tests...")
+    
+    print("\nInitial deck:")
+    test_deck = create_deck()
+    for card in test_deck[:10]:
+        print(card)
+    print(f"Total cards in deck: {len(test_deck)}")
+
+        # test shuffle to ensure deck order changes
+    print("\n------------------------Testing shuffle------------------------")
+
+    shuffle_deck(test_deck)
+
+    print("\nShuffled deck:")
+    for card in test_deck[:10]:
+        print(card)
+
+    print("\n------------------------Testing dealing------------------------")
+
+    # define player and dealer hands, call deal_hand function to deal 2 cards each
+    player_hand = deal_hand(test_deck, 2)
+    dealer_hand = deal_hand(test_deck, 2)
+    
+    print()
+    show_hand("Player", player_hand)
+    show_hand("Dealer", dealer_hand)
+    
+    # test to ensure cards are removed from the deck
+    print(f"\nCards left in deck: {len(test_deck)}")
 
 
-#hit or stand command
-if __name__ == "__main__":
-    print("Shuffling deck...")
+def play_game():
+    print("\nStarting Blackjack Game!")
+    deck = create_deck()
+    shuffle_deck(deck)
+
+    print("\nShuffling deck...")
     shuffle_deck(deck)
    
     # Deal initial hands
@@ -82,7 +171,7 @@ if __name__ == "__main__":
     show_hand("Player", player_hand)
     show_hand("Dealer", dealer_hand, hide_first=True)
 
-# -------- Player Turn --------
+    # -------- Player Turn --------
     while True:
         player_score = calculate_score(player_hand)
         print(f"\nPlayer score: {player_score}")
@@ -109,41 +198,38 @@ if __name__ == "__main__":
             dealer_hand.append(deal_card(deck))
             show_hand("Dealer", dealer_hand)
 
-#calculate score
+    # -------- Determine Winner --------
+    # outcome = calculate_winner(player_hand, dealer_hand)
+    # print(outcome)
+    # results.append(outcome)
 
-#compare and/or determine winner
+    global player_points, dealer_points
 
-#append score to results
+    winner, message = calculate_winner(player_hand, dealer_hand)
+    print(message)
 
-#Debug/Testing Should only output if this file is executed directly
+    if winner == "player":
+        player_points += 1
+    elif winner == "dealer":
+        dealer_points += 1
+
+    results.append(message)
+
+    player_score = calculate_score(player_hand)
+    dealer_score = calculate_score(dealer_hand)
+
+    save_result(player_score, dealer_score, winner)
+
+    # print(f"\nResults so far:", results)
+    print(f"\nCurrent Score - Player: {player_points}, Dealer: {dealer_points}")    
+
 if __name__ == "__main__":
-    print("Initial deck:")
-    for card in deck[:10]:
-        print(card)
-    print(f"Total cards in deck: {len(deck)}")
+    run_tests()
 
-    # test shuffle to ensure deck order changes
-    print("\n------------------------Testing shuffle------------------------")
+    while True:
+        play_game()
+        again = input("Play again? (y/n): ").lower()
 
-    shuffle_deck(deck)
-
-    print("\nShuffled deck:")
-    for card in deck[:10]:
-        print(card)
-
-    print("\n------------------------Testing dealing------------------------")
-
-    # define player and dealer hands, call deal_hand function to deal 2 cards each
-    player_hand = deal_hand(deck, 2)
-    dealer_hand = deal_hand(deck, 2)
-    
-    print()
-    show_hand("Player", player_hand)
-    show_hand("Dealer", dealer_hand)
-    
-    # test to ensure cards are removed from the deck
-    print(f"\nCards left in deck: {len(deck)}")
-
-
-
-
+        if again != 'y':
+            print("Game over. Thanks for playing!")
+            break
