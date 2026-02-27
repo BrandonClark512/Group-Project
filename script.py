@@ -197,4 +197,11 @@ def play_game():
 
 if __name__ == "__main__":
     run_tests()
-    play_game()
+
+    while True:
+        play_game()
+        again = input("Play again? (y/n): ").lower()
+        
+        if again != 'y':
+            print("Game over. Thanks for playing!")
+            break
