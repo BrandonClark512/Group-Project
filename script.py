@@ -113,7 +113,7 @@ def calculate_winner(player_hand, dealer_hand):
     elif dealer_score > player_score:
         return "dealer", "Dealer wins!"
     else:
-        return "It's a tie!"
+        return "tie", "It's a tie!"
     
 def run_tests():
     print("Running tests...")
@@ -191,11 +191,24 @@ def play_game():
             show_hand("Dealer", dealer_hand)
 
     # -------- Determine Winner --------
-    outcome = calculate_winner(player_hand, dealer_hand)
-    print(outcome)
-    results.append(outcome)
+    # outcome = calculate_winner(player_hand, dealer_hand)
+    # print(outcome)
+    # results.append(outcome)
 
-    print(f"\nResults so far:", results)
+    global player_points, dealer_points
+
+    winner, message = calculate_winner(player_hand, dealer_hand)
+    print(message)
+
+    if winner == "player":
+        player_points += 1
+    elif winner == "dealer":
+        dealer_points += 1
+
+    results.append(message)
+
+    # print(f"\nResults so far:", results)
+    print(f"\nCurrent Score - Player: {player_points}, Dealer: {dealer_points}")    
 
 if __name__ == "__main__":
     run_tests()
